@@ -57,8 +57,16 @@ temperature[kf_occurrences[1]]
 temperature_clip = clip(temperature, kf_occurrences)
 precipitation_clip = clip(precipitation, kf_occurrences)
 
-histogram2d(temperature_clip, precipitation_clip, c=:viridis)
+histogram(temperature_clip, c=:viridis)
 scatter!(temperature_clip[kf_occurrences], precipitation_clip[kf_occurrences], lab="", c=:white, msc=:orange)
+
+contour(temperature_clip, fill=true, colorbar_title = "Temperature (°C)",
+                  xguide = "Longitude", yguide = "Latitude")
+scatter!(longitudes(kf_occurrences), latitudes(kf_occurrences), 
+         label = "Kingfisher occurrences", legend = :bottomleft, 
+         c=:white, msc=:orange)
+savefig("fig/occurrences.png")
+
 ## Problem 2: plotting Float32
 temperature_obs = temperature_clip[kf_occurrences]
 precipitation_obs = precipitation_clip[kf_occurrences]
@@ -80,9 +88,6 @@ histogram2d(temperature_clip, precipitation_clip, c=:viridis)
 scatter!(temperature_notnothing, precipitation_notnothing, lab="", c=:white, msc=:orange)
 # So solution is to filter out nothings
 
-contour(precipitation_clip, c=:YlGnBu, title="Precipitation", frame=:box, fill=true)
-scatter!(longitudes(kf_occurrences), latitudes(kf_occurrences), lab="", c=:white, msc=:orange)
-
 ## Sliding window analysis
 
 using SimpleSDMLayers
@@ -95,6 +100,7 @@ averaged = slidingwindow(precipitation, Statistics.mean, 100.0)
 
 plot(precipitation, c=:alpine)
 contour!(averaged, c=:white, lw=2.0)
+savefig("fig/slidingwindow.png")
 
 ## Landcover data
 
