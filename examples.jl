@@ -1,21 +1,22 @@
 import Pkg; Pkg.activate(".")
-using SimpleSDMLayers
-# using Plots, StatsPlots
+using SimpleSDMLayers, Plots
+using Plots, StatsPlots
 
 # Temperature
 
-temperature = worldclim(1);
+temperature = worldclim(1)
 temperature_europe = temperature[left=-11.0, right=31.1, bottom=29.0, top=71.1];
 size(temperature)
 size(temperature_europe)
 
-plot(temperature, c = :cividis, frame = :box,
-     xguide = "Longitude", yguide = "Latitude")
+temperature_plot = plot(temperature, xguide = "Longitude", yguide = "Latitude", colorbar_title = "Temperature (°C)")
+temperature_europlot = plot(temperature_europe, xguide = "Longitude", yguide = "Latitude", colorbar_title = "Temperature (°C)")
+savefig(temperature_plot, "fig/temperature.png")
+savefig(temperature_europlot, "fig/temperature_europe.png")
 
 density(temperature, frame=:zerolines, c=:grey, fill=(0, :grey, 0.5), leg=false)
 xaxis!("Temperature", (-50,30))
 
-temperature_europe = temperature[left=-11.0, right=31.1, bottom=29.0, top=71.1]
 heatmap(temperature_europe, c=:cividis, aspectratio=1, frame=:box)
 
 size(temperature_europe)
