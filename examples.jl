@@ -1,9 +1,13 @@
+import Pkg; Pkg.activate(".")
 using SimpleSDMLayers
-using Plots, StatsPlots
+# using Plots, StatsPlots
 
 # Temperature
 
-temperature = worldclim(1)
+temperature = worldclim(1);
+temperature_europe = temperature[left=-11.0, right=31.1, bottom=29.0, top=71.1];
+size(temperature)
+size(temperature_europe)
 
 plot(temperature, c = :cividis, frame = :box,
      xguide = "Longitude", yguide = "Latitude")
