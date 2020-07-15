@@ -5,7 +5,7 @@ using Plots, StatsPlots
 # Temperature
 
 temperature = worldclim(1)
-temperature_europe = temperature[left=-11.0, right=31.1, bottom=29.0, top=71.1];
+temperature_europe = temperature[left=-11.0, right=31.1, bottom=29.0, top=71.0];
 size(temperature)
 size(temperature_europe)
 
@@ -25,7 +25,9 @@ import Statistics
 temperature_europe_coarse = coarsen(temperature_europe, Statistics.mean, (2, 2))
 ## Problem 1: coarsen
 
-heatmap(temperature_europe_coarse, aspectratio=1, c=:cividis, frame=:box)
+plot(temperature_europe_coarse, xguide = "Longitude", yguide = "Latitude", colorbar_title = "Temperature (°C)")
+savefig("fig/coarsen.png")
+# heatmap(temperature_europe_coarse, aspectratio=1, c=:cividis, frame=:box)
 
 density(temperature, frame=:zerolines, c=:grey, fill=(0, :grey, 0.5), lab="")
 density!(temperature_europe, c=:black, lab="Raw data")
@@ -100,6 +102,9 @@ averaged = slidingwindow(precipitation, Statistics.mean, 100.0)
 
 plot(precipitation, c=:alpine)
 contour!(averaged, c=:white, lw=2.0)
+
+averaged = slidingwindow(temperature_europe, Statistics.mean, 100.0)
+plot(averaged, xguide = "Longitude", yguide = "Latitude", colorbar_title = "Temperature (°C)")
 savefig("fig/slidingwindow.png")
 
 ## Landcover data
