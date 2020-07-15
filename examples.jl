@@ -10,7 +10,7 @@ temperature_europe = temperature[left=-11.0, right=31.1, bottom=29.1, top=70.9];
 size(temperature_europe)
 
 temperature_plot = plot(temperature, xguide = "Longitude", yguide = "Latitude", colorbar_title = "Temperature (°C)")
-temperature_europlot = plot(temperature_europe, frame = :box)
+temperature_europlot = plot(temperature_europe, frame = :box, ticks = false, colorbar = false)
 savefig(temperature_plot, "fig/temperature.png")
 savefig(temperature_europlot, "fig/temperature_europe.png")
 
@@ -25,7 +25,7 @@ import Statistics
 temperature_europe_coarse = coarsen(temperature_europe, Statistics.mean, (4, 4))
 ## Problem 1: coarsen
 
-plot(temperature_europe_coarse, frame = :box)
+plot(temperature_europe_coarse, frame = :box, ticks = false, colorbar = false)
 savefig("fig/coarsen.png")
 # heatmap(temperature_europe_coarse, aspectratio=1, c=:cividis, frame=:box)
 
@@ -104,7 +104,7 @@ plot(precipitation, c=:alpine)
 contour!(averaged, c=:white, lw=2.0)
 
 averaged = slidingwindow(temperature_europe, Statistics.mean, 100.0)
-plot(averaged, frame = :box)
+plot(averaged, frame = :box, ticks = false, colorbar = false)
 savefig("fig/slidingwindow.png")
 
 ## Landcover data
