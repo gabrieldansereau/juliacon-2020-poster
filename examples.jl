@@ -5,8 +5,8 @@ using Plots, StatsPlots
 # Temperature
 
 temperature = worldclim(1)
-temperature_europe = temperature[left=-11.0, right=31.1, bottom=29.0, top=71.0];
-size(temperature)
+temperature_europe = temperature[left=-11.0, right=31.1, bottom=29.1, top=70.9];
+# size(temperature)
 size(temperature_europe)
 
 temperature_plot = plot(temperature, xguide = "Longitude", yguide = "Latitude", colorbar_title = "Temperature (°C)")
@@ -22,7 +22,7 @@ heatmap(temperature_europe, c=:cividis, aspectratio=1, frame=:box)
 size(temperature_europe)
 
 import Statistics
-temperature_europe_coarse = coarsen(temperature_europe, Statistics.mean, (2, 2))
+temperature_europe_coarse = coarsen(temperature_europe, Statistics.mean, (4, 4))
 ## Problem 1: coarsen
 
 plot(temperature_europe_coarse, xguide = "Longitude", yguide = "Latitude", colorbar_title = "Temperature (°C)")
