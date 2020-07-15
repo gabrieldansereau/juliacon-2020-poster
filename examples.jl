@@ -1,6 +1,8 @@
 import Pkg; Pkg.activate(".")
-using SimpleSDMLayers, Plots
-using Plots, StatsPlots
+using SimpleSDMLayers
+using Plots
+using StatsPlots
+using Statistics
 
 # Temperature
 
@@ -122,3 +124,33 @@ filter(!isnan, urban.grid)
 
 using Plots
 heatmap(urban, c=:terrain)
+
+## BIOCLIM
+
+using StatsBase
+include("bioclim.jl")
+
+vars = worldclim(1:19)
+
+# Get prediction for each variable
+vars_predictions = bioclim.(vars, kf_occurrences)
+
+# Get minimum prediction per site
+sdm_raccoon = reduce(min, vars_predictions)
+
+# Set value to NaN if prediction is zero
+replace!(x -> iszero(x) ? NaN : x, sdm_raccoon.grid)
+
+# Filter predictions with threshold
+threshold = quantile(filter(!isnan, sdm_raccoon.grid), 0.05)
+replace!(x -> x <= threshold ? NaN : x, sdm_raccoon.grid)
+
+# Group predictions in categories
+lim1 = 0.20
+lim2 = 0.60
+replace!(x -> x <= lim1 ? 0.0 : x, sdm_raccoon.grid)
+replace!(x -> lim1 < x < lim2 ? 0.5 : x, sdm_raccoon.grid)
+replace!(x -> x >= lim2 ? 1.0 : x, sdm_raccoon.grid)
+
+# Custom colorpicking function
+colorpick(cg::ColorGradient, n::Int) = RGB[cg[i] for i in LinRange(0, 1, n)]
