@@ -138,12 +138,12 @@ vars_predictions = bioclim.(vars, kf_occurrences)
 # Get minimum prediction per site
 sdm_raccoon = reduce(min, vars_predictions)
 
-# Set value to NaN if prediction is zero
-replace!(x -> iszero(x) ? NaN : x, sdm_raccoon.grid)
+# Set value to nothing if prediction is zero
+replace!(x -> isnothing(x) || iszero(x) ? nothing : x, sdm_raccoon.grid)
 
 # Filter predictions with threshold
-threshold = quantile(filter(!isnan, sdm_raccoon.grid), 0.05)
-replace!(x -> x <= threshold ? NaN : x, sdm_raccoon.grid)
+threshold = quantile(filter(!isnothing, sdm_raccoon.grid), 0.05)
+replace!(x -> isnothing(x) || x <= threshold ? nothing : x, sdm_raccoon.grid)
 
 # Group predictions in categories
 lim1 = 0.20
