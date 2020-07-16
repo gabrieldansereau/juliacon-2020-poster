@@ -93,7 +93,7 @@ plot(temperature_clip, c = :lightgrey,
 # Map predictions
 plot!(clip(sdm_raccoon, kf_occurrences), c = :viridis, 
       clim = (minimum(sdm_raccoon), maximum(sdm_raccoon)),
-      colorbar_title = "Predicted suitability")
+      colorbar_title = "Predicted suitability score")
 # Map occurrences
 # scatter!(longitudes(kf_occurrences), latitudes(kf_occurrences), 
 #          label = "Kingfisher occurrences", legend = :bottomleft, 
