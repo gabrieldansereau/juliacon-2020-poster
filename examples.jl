@@ -142,8 +142,8 @@ sdm_raccoon = reduce(min, vars_predictions)
 replace!(x -> isnothing(x) || iszero(x) ? nothing : x, sdm_raccoon.grid)
 
 # Filter predictions with threshold
-threshold = quantile(filter(!isnothing, sdm_raccoon.grid), 0.05)
-replace!(x -> isnothing(x) || x <= threshold ? nothing : x, sdm_raccoon.grid)
+# threshold = quantile(filter(!isnothing, sdm_raccoon.grid), 0.05)
+# replace!(x -> isnothing(x) || x <= threshold ? nothing : x, sdm_raccoon.grid)
 
 plot(temperature_clip, c = :lightgrey,
      xguide = "Longitude", yguide = "Latitude")
@@ -153,7 +153,7 @@ plot!(clip(sdm_raccoon, kf_occurrences), c = :viridis,
 # scatter!(longitudes(kf_occurrences), latitudes(kf_occurrences), 
 #          label = "Kingfisher occurrences", legend = :bottomleft, 
 #          c=:white, msc=:orange)
-savefig("bioclim.png")
+savefig("fig/bioclim.png")
 
 # Group predictions in categories
 lim1 = 0.20
