@@ -3,6 +3,7 @@ using SimpleSDMLayers
 using Plots
 using StatsPlots
 using Statistics
+using StatsBase
 using GBIF
 
 ## World-scale example
@@ -63,6 +64,7 @@ contour(temperature_clip, fill=true, colorbar_title = "Temperature (°C)",
 scatter!(longitudes(kf_occurrences), latitudes(kf_occurrences), 
          label = "Kingfisher occurrences", legend = :bottomleft, 
          c=:white, msc=:orange)
+# Save
 savefig("fig/occurrences.png")
 
 ## BIOCLIM example
