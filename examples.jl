@@ -7,7 +7,7 @@ using Statistics
 # Temperature
 
 temperature = worldclim(1)
-temperature_europe = temperature[left=-11.0, right=31.1, bottom=29.1, top=70.9];
+temperature_europe = temperature[left=-11.2, right=30.6, bottom=29.2, top=71.0];
 # size(temperature)
 size(temperature_europe)
 
