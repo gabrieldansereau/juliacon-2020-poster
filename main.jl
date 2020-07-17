@@ -13,7 +13,7 @@ temperature = worldclim(1)
 # Verify size
 size(temperature)
 # Map temperature
-temperature_plot = plot(temperature, xguide = "Longitude", yguide = "Latitude", colorbar_title = "Temperature (°C)")
+temperature_plot = plot(temperature, xguide = "Longitude", yguide = "Latitude", colorbar_title = "Average Temperature (°C)")
 # Save result
 savefig(temperature_plot, "fig/temperature.png")
 
@@ -59,7 +59,7 @@ end
 temperature_clip = clip(temperature, kf_occurrences)
 
 # Plot occurrences
-contour(temperature_clip, fill=true, colorbar_title = "Temperature (°C)",
+contour(temperature_clip, fill=true, colorbar_title = "Average temperature (°C)",
                   xguide = "Longitude", yguide = "Latitude")
 scatter!(longitudes(kf_occurrences), latitudes(kf_occurrences), 
          label = "Kingfisher occurrences", legend = :bottomleft, 
