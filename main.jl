@@ -78,21 +78,21 @@ vars = worldclim(1:19)
 vars_predictions = bioclim.(vars, kf_occurrences)
 
 # Get minimum prediction per site
-sdm_raccoon = reduce(min, vars_predictions)
+sdm_predictions = reduce(min, vars_predictions)
 
 # Set value to nothing if prediction is zero
-replace!(x -> isnothing(x) || iszero(x) ? nothing : x, sdm_raccoon.grid)
+replace!(x -> isnothing(x) || iszero(x) ? nothing : x, sdm_predictions.grid)
 
 # Filter predictions with threshold
-# threshold = quantile(filter(!isnothing, sdm_raccoon.grid), 0.05)
-# replace!(x -> isnothing(x) || x <= threshold ? nothing : x, sdm_raccoon.grid)
+# threshold = quantile(filter(!isnothing, sdm_predictions.grid), 0.05)
+# replace!(x -> isnothing(x) || x <= threshold ? nothing : x, sdm_predictions.grid)
 
 # Map background
 plot(temperature_clip, c = :lightgrey,
      xguide = "Longitude", yguide = "Latitude")
 # Map predictions
-plot!(clip(sdm_raccoon, kf_occurrences), c = :viridis, 
-      clim = (minimum(sdm_raccoon), maximum(sdm_raccoon)),
+plot!(clip(sdm_predictions, kf_occurrences), c = :viridis, 
+      clim = (minimum(sdm_predictions), maximum(sdm_predictions)),
       colorbar_title = "Predicted suitability score")
 # Map occurrences
 # scatter!(longitudes(kf_occurrences), latitudes(kf_occurrences), 
