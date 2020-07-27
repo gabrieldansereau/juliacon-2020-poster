@@ -2,8 +2,8 @@ function _bioclim_score(x)
     if isnothing(x)
         return nothing
     end
-    @assert 0. ≤ x ≤ 1.
-    if x ≥ 0.5
+    @assert 0. <= x <= 1.
+    if x >= 0.5
         return 2(1-x)
     else
         return 2x
