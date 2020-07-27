@@ -1,2 +1,5 @@
-assets/
+assets/*
 *.code-workspace
+
+# Except
+!wc2.1*.tif
