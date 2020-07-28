@@ -17,14 +17,3 @@ function bioclim(layer::T, records::GBIFRecords) where {T <: SimpleSDMLayer}
     bioclim_prediction.grid = _bioclim_score.(qfgrid)
     return bioclim_prediction
 end
-
-function Base.min(l1::T, l2::T) where {T <: SimpleSDMLayer}
-    SimpleSDMLayers._layers_are_compatible(l1, l2)
-    min_layer = similar(l1)
-    for i in eachindex(l1.grid)
-        if !isnothing(l1[i])
-            min_layer[i] = min(l1[i], l2[i])
-        end
-    end
-    return min_layer
-end
