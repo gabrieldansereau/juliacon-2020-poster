@@ -75,7 +75,7 @@ include("bioclim.jl")
 vars = worldclim(1:19)
 
 # Get prediction for each variable
-vars_predictions = bioclim.(vars, kf_occurrences)
+vars_predictions = [bioclim(v, kf_occurrences) for v in vars]
 
 # Get minimum prediction per site
 sdm_predictions = reduce(min, vars_predictions)
