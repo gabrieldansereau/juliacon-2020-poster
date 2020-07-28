@@ -46,32 +46,3 @@ Our presentation will demonstrate the key features of the package through concre
 examples of bioclimatic data visualization and species distribution modelling.
 It is aimed at ecologists and biogeographers in the Julia community, as well as all
 scientists working with spatial data.
-
-**Notes**:
-- Type system:
-  - layer --> grid with data of any type, bounding spatial coordinates
-  - Predictor vs Response
-- Methods
-  - Overloads from Base
-  - Access a normal 2D-Arrays, either on grid position or coordinates, for single values or ranges
-  - Easy assignment of values for Responses based on coordinates
-- Bioclimatic Data
-  - WorldClim 2.0 integration, layers for all variables, based on coordinates range. Ease of cropping
-- Plotting
-  - Recipes & functions for visualization (heatmap), or representing important features (density, histogram), scatter plots comparing variables
-
-- Base type to be reused by packages implementing species distribution models
-- SDMs by default work on continuous ranges, hence for need for grid-like integration
-
-- Other interesting features
-  - Missing data handling
-  - Coarsening
-
-**Scoring Criterias**:
-1. Applicability to the Julia Community
-2. Contributions to the community
-3. Clarity
-4. Significance to the community
-5. Topic diversity
-6. Soundness
-7. Classification
